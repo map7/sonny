@@ -1,0 +1,19 @@
+* Nodebot notes
+
+** Stack
+
+Robot:  arduino + firmata
+Server: node + firmata + johnny-five
+
+Firmata - coms
+: npm i johnny-five express socket.io
+
+Use File -> examples -> firmata -> standard
+Now close Arduino as you only need that for firmata.
+
+** Issues
+
+Couldn't connect or see servo objects (note you will not see five as an object)
+Solution: reload firmata on the board & wait a good 10sec after done.
+
+
