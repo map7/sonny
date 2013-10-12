@@ -1,6 +1,5 @@
 // Load johnny five & create a board
-var five = require('johnny-five');
-var board, servo;
+var five = require('johnny-five'), board, servo;
 
 board = new five.Board();
 
