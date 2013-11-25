@@ -3,7 +3,7 @@ var keypress = require('keypress');
 // keypress(process.stdin);
 
 // Load johnny five & create a board
-var five = require('johnny-five'), board, servo;
+var five = require('johnny-five'), board, servo, led;
 
 var stop=89;
 
@@ -18,9 +18,13 @@ board.on('ready', function(){
 	};
 	// servo = new five.Servo({pin: 9, range:[0,180]});
 
+	// Brake light
+	var led = new five.Led({pin: 13});
+
 	// Allow direct commandline access
 	board.repl.inject({
-		s: servos
+		s: servos,
+		led: led
 	});
 
 	// Center servo
@@ -38,26 +42,31 @@ board.on('ready', function(){
 		if (key.name == 'space') {
 			servos.left.move(stop);
 			servos.right.move(stop);
+			led.on();
 		};
 
 		if (key.name == 'up') {
 			servos.left.move(98);
 			servos.right.move(80);
+			led.off();
 		};
 
 		if (key.name == 'right') {
 			servos.left.move(80);
 			servos.right.move(80);
+			led.off();
 		};
 
 		if (key.name == 'down') {
 			servos.left.move(80);
 			servos.right.move(98);
+			led.off();
 		};
 
 		if (key.name == 'left') {
 			servos.left.move(98);
 			servos.right.move(98);
+			led.off();
 		};
 
 
