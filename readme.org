@@ -3,10 +3,10 @@
 ** Stack
 
 Robot:  arduino + firmata
-Server: node + firmata + johnny-five
+Server: node + firmata (standard) + johnny-five
 
 Firmata - coms
-: npm i johnny-five express socket.io
+: npm i johnny-five express socket.io keypress
 
 Use File -> examples -> firmata -> standard
 Now close Arduino as you only need that for firmata.
