@@ -8,7 +8,7 @@ var five = require('johnny-five'), board, servo, led;
 // Set my stop points
 var STOP_RIGHT=86;
 var STOP_LEFT=86;
-var SPEED=10;
+var SPEED=30;
 
 board = new five.Board();
 
