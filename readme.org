@@ -1,9 +1,17 @@
 * Nodebot notes
 
+** IP
+
+10.1.1.195 (ref: robots.org)
+
 ** Stack
 
 Robot:  arduino + firmata
 Server: node + firmata + johnny-five
+
+Get the latest nodebots au firmata from https://github.com/nodebotsau/simplebot
+In the directory SimpleBotFirmata, load this onto your arduino
+Connect Arduino, wait a while, load the arduino app and upload
 
 Firmata - coms
 : npm i johnny-five express socket.io
@@ -11,9 +19,16 @@ Firmata - coms
 Use File -> examples -> firmata -> standard
 Now close Arduino as you only need that for firmata.
 
+** Running my robot
+
+: node robot.js
+
+
 ** Issues
 
 Couldn't connect or see servo objects (note you will not see five as an object)
 Solution: reload firmata on the board & wait a good 10sec after done.
 
+The left motor is not working correctly. Will have to get a replacement I think
+http://littlebirdelectronics.com/products/servo-medium-full-rotation
 
