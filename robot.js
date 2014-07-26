@@ -2,24 +2,37 @@
 var keypress = require('keypress');
 // keypress(process.stdin);
 
-// Load johnny five & create a board
+// Load johnny five, modules & create a board
 var five = require('johnny-five'), board, servo, led;
 
-var stop=89;
+// Set my stop points
+var STOP_RIGHT=86;
+var STOP_LEFT=86;
+var SPEED=10;
 
 board = new five.Board();
 
 board.on('ready', function(){
-	// Servo hardware
-	// define a range of 0 to 172 otherwise it will grind (only richard's servo)
+	// Servo hardware defining a range
+
 	servos = {
-		left: five.Servo({pin: 9, range: [0,170]}),
-		right: five.Servo({pin: 10, range: [0,170]})
+		left: five.Servo({pin: 9,
+						  range: [0,180],
+						  startAt: STOP_LEFT,
+						  isInverted: false
+						 }
+						),
+		right: five.Servo({pin: 10,
+						   range: [0,180],
+						   startAt: STOP_RIGHT,
+						   isInverted: true
+						  }
+						 )
 	};
-	// servo = new five.Servo({pin: 9, range:[0,180]});
+	servo = new five.Servo({pin: 10, range:[0,180]});
 
 	// Brake light
-	var led = new five.Led({pin: 13});
+ 	var led = new five.Led({pin: 13});
 
 	// Allow direct commandline access
 	board.repl.inject({
@@ -27,45 +40,41 @@ board.on('ready', function(){
 		led: led
 	});
 
-	// Center servo
-	servos.left.move(stop);
-	servos.right.move(stop);
-
 	// this.wait(1000, function(){
 	// 	servos.left.sweep();
 	// });
 
 	// listen
 	process.stdin.on('keypress', function(ch,key){
-		// console.log('got keypress', key);
+		console.log('got keypress', key);
 
 		if (key.name == 'space') {
-			servos.left.move(stop);
-			servos.right.move(stop);
+			servos.left.move(STOP_LEFT);
+			servos.right.move(STOP_RIGHT);
 			led.on();
 		};
 
 		if (key.name == 'up') {
-			servos.left.move(98);
-			servos.right.move(80);
+			servos.left.move(STOP_LEFT - SPEED);
+			servos.right.move(STOP_RIGHT + SPEED);
 			led.off();
 		};
 
 		if (key.name == 'right') {
-			servos.left.move(80);
-			servos.right.move(80);
-			led.off();
-		};
-
-		if (key.name == 'down') {
-			servos.left.move(80);
-			servos.right.move(98);
+			servos.left.move(STOP_LEFT - SPEED);
+			servos.right.move(STOP_RIGHT - SPEED);
 			led.off();
 		};
 
 		if (key.name == 'left') {
-			servos.left.move(98);
-			servos.right.move(98);
+			servos.left.move(STOP_LEFT + SPEED);
+			servos.right.move(STOP_RIGHT + SPEED);
+			led.off();
+		};
+
+		if (key.name == 'down') {
+			servos.left.move(STOP_LEFT + SPEED);
+			servos.right.move(STOP_RIGHT - SPEED);
 			led.off();
 		};
 
